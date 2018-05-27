@@ -4,41 +4,79 @@
 <head>
   <link rel="stylesheet" src="//normalize-css.googlecode.com/svn/trunk/normalize.css" />
   <link rel="stylesheet" href="css/styles.css">
+  <meta name=“viewport” content=“width=device-width, initial-scale=1”>
+  <meta charset="utf-8">
   <title>Restaurant Reviews</title>
 </head>
 
-<body>
-  <header>
-    <nav>
-      <h1><a href="/">Restaurant Reviews</a></h1>
-    </nav>
-  </header>
+<body class="container">
+    <div class="inside">
+      <!-- Beginning header -->
+      <header>
+        <!-- Beginning nav -->
+          <nav role="navigation">
+            <h1 id="title"><a href="/">Restaurant Reviews</a></h1>
+          </nav>
+        <!-- Beginning breadcrumb -->
+        <ul id="breadcrumb" >
+          <li><a href="/">Home</a></li>
+        </ul>
+        <!-- End breadcrumb -->
+        <!-- End nav -->
+      </header>
+      <!-- End header -->
 
-  <main id="maincontent">
-    <section id="map-container">
-      <div id="map"></div>
-    </section>
-    <section>
-      <div class="filter-options">
-        <h2>Filter Results</h2>
-        <select id="neighborhoods-select" name="neighborhoods" onchange="updateRestaurants()">
-          <option value="all">All Neighborhoods</option>
-        </select>
-        <select id="cuisines-select" name="cuisines" onchange="updateRestaurants()">
-          <option value="all">All Cuisines</option>
-        </select>
-      </div>
-      <ul id="restaurants-list"></ul>
-    </section>
-  </main>
+      <!-- Beginning main -->
+      <main id="maincontent" role="main">
+        <!-- Beginning map -->
+        <section id="map-container" aria-label="Google Map" aria-hidden="true">
+          <div id="map" tabindex="0" role="application" aria-hidden="true"></div>
+        </section>
+        <!-- End map -->
+        <section role="section" aria-label="Restaurants">
+          <div class="filter-options" aria-label="List of Restaurants">
+            <h2 aria-labelledby="filtering" role="option">Filter Results</h2>
+              <form>
+                <label>
+                  <select id="neighborhoods-select" tabindex="0" name="neighborhoods" onchange="updateRestaurants()">
+                    <option role="option" id="filtering" value="all">All Neighborhoods</option>
+                  </select>
+                </label>
+              </form>
+              <form>
+                <label>
+                  <select id="cuisines-select" name="cuisines" onchange="updateRestaurants()">
+                    <option role="option" id="filtering" value="all">All Cuisines</option>
+                  </select>
+                </label>
+              </form>
+        </div>
+        </section>
+        <!-- Beginning restaurant -->
+        <section id="restaurant-container">
+          <h2>Restaurants Nearby</h2>
+          <ul id="restaurants-list" aria-label="List of Restaurants"></ul>
+          <h1 id="restaurant-name"></h1>
+          <img id="restaurant-img">
+          <p id="restaurant-cuisine"></p>
+          <p id="restaurant-address"></p>
+          <table id="restaurant-hours"></table>
+        </section>
+        <!-- end restaurant -->
+        <!-- Beginning reviews -->
+        <section id="reviews-container">
+          <ul id="reviews-list"></ul>
+        </section>
+        <!-- End reviews -->
+      </main>
+    </div>
 
   <script type="application/javascript" charset="utf-8" src="js/dbhelper.js"></script>
   <script type="application/javascript" charset="utf-8" src="js/main.js"></script>
-  <script async defer src="https://maps.googleapis.com/maps/api/js?key=YOUR_GOOGLE_MAPS_API_KEY&libraries=places&callback=initMap"></script>
+  <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDqsUVyV1EAwXNH9K3wvI5YTRihZp9WBNQ&libraries=places&callback=initMap"></script>
 
-
-  <footer id="footer">
-    Copyright (c) 2017 <a href="/"><strong>Restaurant Reviews</strong></a> All Rights Reserved.
+  <footer tab-index="1" id="footer" role="contentinfo">
+    Copyright (c) 2018 <a href="/"><strong>Restaurant Reviews</strong></a> All Rights Reserved.
   </footer>
 
 </body>
