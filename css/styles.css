@@ -330,3 +330,10 @@ nav h1 a {
 #restaurant-hours td {
   color: #666;
 }
+
+@media screen and (min-width: 1200rem) {
+	.container {
+		max-width: 1200rem;
+		margin:auto;
+	}
+}
