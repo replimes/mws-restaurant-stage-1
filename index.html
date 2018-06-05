@@ -5,7 +5,9 @@
   <link rel="stylesheet" src="//normalize-css.googlecode.com/svn/trunk/normalize.css" />
   <link rel="stylesheet" href="css/styles.css">
   <meta name=“viewport” content=“width=device-width, initial-scale=1”>
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.13/css/all.css" integrity="sha384-DNOHZ68U8hZfKXOrtjWvjxusGo9WQnrNx2sqG0tfsghAvtVlRW3tvkXWZh58N9jp" crossorigin="anonymous">
   <meta charset="utf-8">
+  <meta name="description" content="Restaurant Reviews near Manhattan New York" />
   <title>Restaurant Reviews</title>
 </head>
 
@@ -19,6 +21,7 @@
           </nav>
         <!-- Beginning breadcrumb -->
         <ul id="breadcrumb" >
+          <a href="#restaurantsMain" class="skip-link">Skip to Main Content</a>
           <li><a href="/">Home</a></li>
         </ul>
         <!-- End breadcrumb -->
@@ -30,34 +33,29 @@
       <main id="maincontent" role="main">
         <!-- Beginning map -->
         <section id="map-container" aria-label="Google Map" aria-hidden="true">
-          <div id="map" tabindex="0" role="application" aria-hidden="true"></div>
+          <div id="map" role="application" aria-hidden="true"></div>
         </section>
         <!-- End map -->
-        <section role="section" aria-label="Restaurants">
+        <!-- Extra Spacing -->
+        <section aria-label="Please Ignore">
+          <br><br><br><br><br><br><br><br><br>
+        </section>
+        <!-- Drop down menus -->
+        <section id="restaurantsMain" tabindex="-1" aria-label="Restaurants">
           <div class="filter-options" aria-label="List of Restaurants">
-            <h2 aria-labelledby="filtering" role="option">Filter Results</h2>
-              <form>
-                <label>
-                  <select id="neighborhoods-select" tabindex="0" name="neighborhoods" onchange="updateRestaurants()">
-                    <option role="option" id="filtering" value="all">All Neighborhoods</option>
-                  </select>
-                </label>
-              </form>
-              <form>
-                <label>
-                  <select id="cuisines-select" name="cuisines" onchange="updateRestaurants()">
-                    <option role="option" id="filtering" value="all">All Cuisines</option>
-                  </select>
-                </label>
-              </form>
-        </div>
+            <h1 role="option"> &nbsp; &nbsp; &nbsp; &nbsp;<i class="fas fa-filter"></i>&nbsp; Filter Results &nbsp; &nbsp; </h1>
+              <select id="neighborhoods-select" tabindex="0" name="neighborhoods" onchange="updateRestaurants()">
+                <option role="option" value="all"><label>All Neighborhoods</label></option>
+              </select>
+              <select id="cuisines-select" tabindex="0" name="cuisines" onchange="updateRestaurants()">
+                <option role="option" value="all"><label>All Cuisines</label></option>
+              </select>
         </section>
         <!-- Beginning restaurant -->
         <section id="restaurant-container">
           <h2>Restaurants Nearby</h2>
           <ul id="restaurants-list" aria-label="List of Restaurants"></ul>
           <h1 id="restaurant-name"></h1>
-          <img id="restaurant-img" src=“1s.jpg” srcset="1.jpg 1x, L-1.jpg 2x” sizes="(min-width: 400px) 50vw" alt=“Restaurant”>
           <p id="restaurant-cuisine"></p>
           <p id="restaurant-address"></p>
           <table id="restaurant-hours"></table>
