@@ -4,9 +4,3 @@ navigator.serviceWorker.register('/sw.js').then(function(reg){
 }).catch(function(err) {
   console.log('Boo!');
 })
-
-
-
-self.addEventListener('fetch', function(event) {
-  console.log(event.request);
-})

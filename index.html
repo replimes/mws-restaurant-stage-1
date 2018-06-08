@@ -1,5 +1,8 @@
 <!DOCTYPE html>
 <html>
+<!--[if lt IE 9]>
+  <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+<![endif]-->
 
 <head>
   <link rel="stylesheet" src="//normalize-css.googlecode.com/svn/trunk/normalize.css" />
@@ -7,11 +10,11 @@
   <meta name=“viewport” content=“width=device-width, initial-scale=1”>
   <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.13/css/all.css" integrity="sha384-DNOHZ68U8hZfKXOrtjWvjxusGo9WQnrNx2sqG0tfsghAvtVlRW3tvkXWZh58N9jp" crossorigin="anonymous">
   <meta charset="utf-8">
-  <meta name="description" content="Restaurant Reviews near Manhattan New York" />
+  <meta name="description" content="Restaurant Reviews near Manhattan New York, website built with accessibility in mind." />
   <title>Restaurant Reviews</title>
 </head>
 
-<body class="container">
+<body>
     <div class="inside">
       <!-- Beginning header -->
       <header>
@@ -21,25 +24,19 @@
           </nav>
         <!-- Beginning breadcrumb -->
         <ul id="breadcrumb" >
-          <a href="#restaurantsMain" class="skip-link">Skip to Main Content</a>
           <li><a href="/">Home</a></li>
         </ul>
         <!-- End breadcrumb -->
         <!-- End nav -->
-      </header>
+      </header><a href="#restaurantsMain" class="skip-link">Skip to Main Content</a>
       <!-- End header -->
-
+      <!-- Beginning map -->
+      <section id="map-container" aria-label="Google Map" aria-hidden="true">
+        <div id="map" role="application" aria-hidden="true"></div>
+      </section>
+      <!-- End map -->
       <!-- Beginning main -->
       <main id="maincontent" role="main">
-        <!-- Beginning map -->
-        <section id="map-container" aria-label="Google Map" aria-hidden="true">
-          <div id="map" role="application" aria-hidden="true"></div>
-        </section>
-        <!-- End map -->
-        <!-- Extra Spacing -->
-        <section aria-label="Please Ignore">
-          <br><br><br><br><br><br><br><br><br>
-        </section>
         <!-- Drop down menus -->
         <section id="restaurantsMain" tabindex="-1" aria-label="Restaurants">
           <div class="filter-options" aria-label="List of Restaurants">
@@ -50,6 +47,7 @@
               <select id="cuisines-select" tabindex="0" name="cuisines" onchange="updateRestaurants()">
                 <option role="option" value="all"><label>All Cuisines</label></option>
               </select>
+          </div>
         </section>
         <!-- Beginning restaurant -->
         <section id="restaurant-container">
