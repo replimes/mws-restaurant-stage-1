@@ -22,11 +22,9 @@ a {
 	color: orange;
 	text-decoration: none;
 }
-
 a:link {
 	color: #60DBF0;
 }
-
 a:hover, a:focus {
 	color: #3397db;
 	background-color: orange;
@@ -35,11 +33,9 @@ a:hover, a:focus {
 a img{
 	border: none 0rem #fff;
 }
-
 h1 {
 	text-transform: uppercase;
 }
-
 h2, h3, h4, h5, h6 {
   font-family: Arial, Helvetica, sans-serif;
 	font-size: 1.4rem;
@@ -47,7 +43,6 @@ h2, h3, h4, h5, h6 {
 article, aside, canvas, details, figcaption, figure, footer, header, hgroup, menu, nav, section {
 	display: block;
 }
-
 #maincontent {
   background-color: #f3f3f3;
 }
@@ -82,7 +77,6 @@ nav {
 	position: relative;
 	clear: both;
 }
-
 nav h1 {
   margin: 1rem;
 }
@@ -127,7 +121,7 @@ nav h1 a {
 /* ====================== Map ====================== */
 #map {
   height: 500px;
-	width: 480px;
+	width: 100%;
   background-color: #ccc;
 	position:fixed;
 	margin-top: auto;
@@ -336,8 +330,8 @@ nav h1 a {
 }
 @media screen and (max-width: 960px) {
 	.inside #map-container {
-		height: 300px;
-		width: 480px;
+		height: 325px;
+		width: 100%;
 		margin: auto;
 		display: block;
 		flex-direction: column;
@@ -351,9 +345,6 @@ nav h1 a {
 		width: 50%;
 		left: 0;
 	}
-	filter-options {
-		width: 50%;
-	}
 }
 @media screen and (max-width: 480px) {
 	#map-container, #map {
@@ -362,22 +353,22 @@ nav h1 a {
 		width: 100%;
 		position:none;
 		height: 400px;
+		margin-top: 8rem;
 	}
 	.filter-options {
 		display: flex;
 		flex-direction: row;
 		flex-wrap: wrap;
-		justify-content: flex-start;
+		justify-content: center;
 		align-items: stretch;
 		align-content: flex-start;
-		width: 50%;
 		margin-bottom: 2rem;
 	}
 	#breadcrumb {
 	    width: 480px;
 			display: block;
 			position: static;
-			width: 100%;
+			width: 75%;
 	}
 }
 .skip-link {
