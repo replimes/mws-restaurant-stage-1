@@ -1,4 +1,4 @@
-import idb from 'idb.js';
+import idb from 'idb';
 
 var dbPromise = window.indexedDB.open('test-db', 1, function(upgradeDb) {
   console.log('Making a new object store');
