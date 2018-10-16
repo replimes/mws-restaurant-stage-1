@@ -28,10 +28,10 @@ self.addEventListener('activate', event => {
         if (!expectedCaches.includes(key)) {
           return caches.delete(key);
         }
-      });
+      }),
     )).then(() => {
       console.log('V1 now ready to handle fetches!');
-    });
+    }),
   );
 });
 // Respond with an entry from the cache if there is one.
@@ -43,7 +43,7 @@ self.addEventListener('fetch', function(event) {
         return response;
       }
       return fetch(event.request);
-    });
+    }),
   );
 });
 //404 Page
@@ -56,6 +56,6 @@ self.addEventListener('fetch', function(event) {
       return response;
     }).catch(function() {
       return new Response("Uh oh, that totally failed!");
-    });
+    }),
   );
 });
