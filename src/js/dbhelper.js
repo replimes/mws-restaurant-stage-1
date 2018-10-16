@@ -8,7 +8,8 @@ class DBHelper {
    * Change this to restaurants.json file location on your server.
    */
   static get DATABASE_URL() {
-    return `http://localhost:1337`;
+    const port = 1337;
+    return `http://localhost:${port}/data/restaurants.json`;
   }
 
   /**
@@ -31,7 +32,7 @@ class DBHelper {
         });
       })
       .catch(error => {
-        callback(`Request failed. Returned $(error)`, null);
+        callback(`Request failed. Returned ${error}`, null);
       });
     }
     /*xhr.open('GET', DBHelper.DATABASE_URL);

@@ -1,5 +1,10 @@
 import idb from 'idb';
 
+if (!('indexedDB' in window)) {
+  console.log('This browser doesn\'t support IndexedDB');
+  return;
+}
+
 var dbPromise = window.indexedDB.open('test-db', 1, function(upgradeDb) {
   console.log('Making a new object store');
   switch(upgradeDb.oldVersion) {
@@ -11,7 +16,7 @@ var dbPromise = window.indexedDB.open('test-db', 1, function(upgradeDb) {
     case 2:
       var peopleStore = upgrade.transaction.objectStore('people');
       peopleStore.createIndex('animal', 'favoriteAnimal');
-  }
+  };
 });
 
 dbPromise.then(function(db) {
