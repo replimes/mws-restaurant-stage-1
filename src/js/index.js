@@ -17,7 +17,7 @@ var dbPromise = window.indexedDB.open('test-db', 1, function(upgradeDb) {
   };
 });
 
-dbPromise.then(function(db) {
+const dbPromise.then(function(db) {
   var tx = db.transaction('keyval');
   var keyValStore = tx.objectStore('keyval');
   return keyValStore.get('hello');
@@ -25,7 +25,7 @@ dbPromise.then(function(db) {
   console.log('The value of \"hello\" is:', val);
 });
 
-dbPromise.then(function(db) {
+const dbPromise.then(function(db) {
   var tx = db.transaction('keyval', 'readwrite');
   var keyValStore = tx.objectStore('keyval');
   keyValStore.put('bar', 'foo');
@@ -34,7 +34,7 @@ dbPromise.then(function(db) {
   console.log('Added foo:bar to keyval');
 });
 
-dbPromise.then(function(db) {
+const dbPromise.then(function(db) {
   var tx = db.transaction('people', 'readwrite');
   var peopleStore = tx.objectStore('people');
 
@@ -49,7 +49,7 @@ dbPromise.then(function(db) {
   console.log('People added');
 });
 
-dbPromise.then(function(db) {
+const dbPromise.then(function(db) {
   var tx = db.transaction('people');
   var peopleStore = tx.objectStore('people');
   var animalIndex = peopleStore.index('animal');
@@ -59,7 +59,7 @@ dbPromise.then(function(db) {
   console.log('People:', people);
 });
 
-dbPromise.then(function(db) {
+const dbPromise.then(function(db) {
   var tx = db.transaction('people');
   var peopleStore = tx.objectStore('people');
   var animalIndex = peopleStore.index('animal');
