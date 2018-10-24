@@ -1,6 +1,10 @@
+import dbPromise from './dbpromise';
+
 /**
  * Common database helper functions.
  */
+
+
 export default class DBHelper {
 
   /**
@@ -15,10 +19,47 @@ export default class DBHelper {
     return `http://localhost:8000/data/restaurants.json`;
   }
 
+  static fetchRestaurants(callback) {
+      let xhr = new XMLHttpRequest();
+      xhr.open('GET', `${DBHelper.API_URL}/restaurants`);
+      xhr.onload = () => {
+        if (xhr.status === 200) { // Got a success response from server!
+          const restaurants = JSON.parse(xhr.responseText);
+          dbPromise.putRestaurants(restaurants);
+          callback(null, restaurants);
+        } else { // Oops!. Got an error from server.
+          console.log(`Request failed. Returned status of ${xhr.status}, trying idb...`);
+          // if xhr request isn't code 200, try idb
+          dbPromise.getRestaurants().then(idbRestaurants => {
+            // if we get back more than 1 restaurant from idb, return idbRestaurants
+            if (idbRestaurants.length > 0) {
+              callback(null, idbRestaurants)
+            } else { // if we got back 0 restaurants return an error
+              callback('No restaurants found in idb', null);
+            }
+          });
+        }
+      };
+      // XHR needs error handling for when server is down (doesn't respond or sends back codes)
+      xhr.onerror = () => {
+        console.log('Error while trying XHR, trying idb...');
+        // try idb, and if we get restaurants back, return them, otherwise return an error
+        dbPromise.getRestaurants().then(idbRestaurants => {
+          if (idbRestaurants.length > 0) {
+            callback(null, idbRestaurants)
+          } else {
+            callback('No restaurants found in idb', null);
+          }
+        });
+      }
+      xhr.send();
+    }
+
+
   /**
    * Fetch all restaurants.
    */
-  static fetchRestaurants(callback, id) {
+  /** static fetchRestaurants(callback, id) {
     //let xhr = new XMLHttpRequest();
     let fetchURL;
     if (!id) {
@@ -58,17 +99,23 @@ export default class DBHelper {
   /**
    * Fetch a restaurant by its ID.
    */
-  static fetchRestaurantById(id, callback) {
-    // fetch all restaurants with proper error handling.
-    fetch(`${DBHelper.API_URL}/restaurants/${id}`).then(response => {
-      if (!response.ok) return Promise.reject("Restaurant couldn't be fetched from network");
-      return response.json();
-    }).then(fetchedRestaurant => {
-      // if restaurant could be fetched from network:
-      return callback(null, fetchedRestaurant);
-    }).catch(networkError => {
-      return callback(networkError, null);
-    });
+   static fetchRestaurantById(id, callback) {
+     fetch(`${DBHelper.API_URL}/restaurants/${id}`).then(response => {
+       if (!response.ok) return Promise.reject("Restaurant couldn't be fetched from network");
+       return response.json();
+     }).then(fetchedRestaurant => {
+       // if restaurant could be fetched from network:
+       dbPromise.putRestaurants(fetchedRestaurant);
+       return callback(null, fetchedRestaurant);
+     }).catch(networkError => {
+       // if restaurant couldn't be fetched from network:
+       console.log(`${networkError}, trying idb.`);
+       dbPromise.getRestaurants(id).then(idbRestaurant => {
+         if (!idbRestaurant) return callback("Restaurant not found in idb either", null);
+         return callback(null, idbRestaurant);
+       });
+     });
+   }
 /*
     DBHelper.fetchRestaurants((error, restaurants) => {
       if (error) {
@@ -82,7 +129,7 @@ export default class DBHelper {
         }
       }
     });*/
-  }
+
 
   /**
    * Fetch restaurants by a cuisine type with proper error handling.
