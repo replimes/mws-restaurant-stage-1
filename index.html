@@ -69,6 +69,9 @@ navigator.serviceWorker.register('/sw.js')
   .then(reg => console.log('SW registered!', reg))
   .catch(err => console.log('Boo!', err));
 </script>
+<link rel="manifest" href="/manifest.json">
+<script src="https://rawgit.com/jakearchibald/idb/master/lib/idb.js"></script>
+<script type="application/javascript" charset="utf-8" src="dbhelper.js"></script>
 </body>
 
 </html>

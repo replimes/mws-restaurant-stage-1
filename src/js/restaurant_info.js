@@ -1,4 +1,5 @@
 import DBHelper from './dbhelper';
+import './sw.js';
 
 let restaurant;
 var map;
