@@ -7,14 +7,14 @@ const expectedCaches = ['rest-static-v1'];
         console.log('Opened cache');
         return cache.addAll([
           '/',
-          'sw.js',
-          'index.html',
-          'restaurant.html',
-          'css/styles.css',
-          'js/main.js',
-          'js/dbhelper.js',
-          'js/restaurant_info.js',
-          'js/idb/index.js'
+          '/sw.js',
+          '/index.html',
+          '/restaurant.html',
+          '/css/styles.css',
+          '/js/main.js',
+          '/js/restaurant_info.js',
+          '/js/idb/index.js',
+          'data/restaurants.json'
         ]);
       })
     );

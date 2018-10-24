@@ -1,5 +1,6 @@
 import DBHelper from './dbhelper';
 import SECRET from './secret';
+import './sw.js';
 
 let restaurants,
   neighborhoods,

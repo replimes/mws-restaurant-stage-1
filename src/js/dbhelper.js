@@ -7,8 +7,12 @@ export default class DBHelper {
    * Database URL.
    * Change this to restaurants.json file location on your server.
    */
+   static get API_URL() {
+     return `http://localhost:1337`;
+   }
+
   static get DATABASE_URL() {
-    return `http://localhost:1337/data/restaurants.json`;
+    return `http://localhost:8000/data/restaurants.json`;
   }
 
   /**
@@ -16,7 +20,7 @@ export default class DBHelper {
    */
   static fetchRestaurants(callback, id) {
     //let xhr = new XMLHttpRequest();
-    let fetchURL:
+    let fetchURL;
     if (!id) {
       fetchURL = DBHelper.DATABASE_URL;
     } else {
@@ -34,25 +38,38 @@ export default class DBHelper {
         callback(`Request failed. Returned ${error}`, null);
       });
     }
-    /*xhr.open('GET', DBHelper.DATABASE_URL);
+    /*
+  static fetchRestaurants(callback) {
+    let xhr = new XMLHttpRequest();
+    xhr.open('GET', '${DBHelper.API_URL}/restaurants');
     xhr.onload = () => {
       if (xhr.status === 200) { // Got a success response from server!
-        const json = JSON.parse(xhr.responseText);
-        const restaurants = json.restaurants;
+        const restaurants = JSON.parse(xhr.responseText);
         callback(null, restaurants);
       } else { // Oops!. Got an error from server.
         const error = (`Request failed. Returned status of ${xhr.status}`);
         callback(error, null);
-      }*/
+      }
     };
-    //xhr.send();
+    xhr.send();
   }
+*/
 
   /**
    * Fetch a restaurant by its ID.
    */
   static fetchRestaurantById(id, callback) {
     // fetch all restaurants with proper error handling.
+    fetch(`${DBHelper.API_URL}/restaurants/${id}`).then(response => {
+      if (!response.ok) return Promise.reject("Restaurant couldn't be fetched from network");
+      return response.json();
+    }).then(fetchedRestaurant => {
+      // if restaurant could be fetched from network:
+      return callback(null, fetchedRestaurant);
+    }).catch(networkError => {
+      return callback(networkError, null);
+    });
+/*
     DBHelper.fetchRestaurants((error, restaurants) => {
       if (error) {
         callback(error, null);
@@ -64,7 +81,7 @@ export default class DBHelper {
           callback('Restaurant does not exist', null);
         }
       }
-    });
+    });*/
   }
 
   /**
@@ -167,7 +184,18 @@ export default class DBHelper {
    * Restaurant image URL.
    */
   static imageUrlForRestaurant(restaurant) {
-    return (`./img/${restaurant.photograph}`);
+    let url = `/img/${(restaurant.photograph||restaurant.id)}-medium.jpg`;
+    return url;
+  }
+  /**
+   * Restaurant srcset attribute for browser to decide best resolution.  It uses restaurant.photograph
+   * and fallbacks to restaurant.id if former is missing.
+   */
+  static imageSrcsetForRestaurant(restaurant) {
+    const imageSrc = `/img/${(restaurant.photograph||restaurant.id)}`;
+    return `${imageSrc}-small.jpg 300w,
+            ${imageSrc}-medium.jpg 600w,
+            ${imageSrc}-large.jpg 800w`;
   }
 
   /**
